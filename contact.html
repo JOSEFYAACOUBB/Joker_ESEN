@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Joker ESEN</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="icon" href="logo.png" type="image/png">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #595b9f;
+            --primary-dark: #45477c;
+            --accent: #b02b35;
+            --accent-dark: #831d20;
+            --soft: #b69ead;
+            --warm: #f3bb98;
+            --dark: #0F0F1A;
+            --light: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+            padding-top: 80px;
+        }
+
+        /* Header - Identique à l'index */
+        .navbar {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+        }
+
+        .navbar.scrolled {
+            padding: 10px 0;
+            background: rgba(255, 255, 255, 0.98);
+        }
+
+        .navbar-brand {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            margin: 0 10px;
+            position: relative;
+            color: var(--dark);
+        }
+
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover:after,
+        .nav-link.active:after {
+            width: 100%;
+        }
+
+        .navbar-logo {
+            height: 60px;
+            width: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-logo:hover {
+            transform: scale(1.05);
+        }
+
+        /* Hero Section */
+        .contact-hero {
+            height: 60vh;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url(assemble3.jpg) center/cover no-repeat;
+            opacity: 0.15;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+        }
+
+        .hero-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, white, #e0e0e0);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: textShine 3s ease-in-out infinite alternate;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .contact-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(89, 91, 159, 0.1);
+            overflow: hidden;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 50px;
+            height: 100%;
+        }
+
+        .contact-info h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .contact-info h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--warm);
+            margin-right: 15px;
+            min-width: 30px;
+        }
+
+        .contact-text h4 {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .contact-text p {
+            opacity: 0.9;
+            margin-bottom: 0;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        /* Formulaire */
+        .contact-form {
+            padding: 50px;
+        }
+
+        .form-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: var(--primary);
+        }
+
+        .form-control {
+            height: 50px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            padding-left: 45px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(89, 91, 159, 0.2);
+        }
+
+        textarea.form-control {
+            height: 150px;
+            padding-top: 15px;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            z-index: 4;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(201, 24, 74, 0.4);
+        }
+
+        /* Carte */
+        .map-container {
+            height: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Confirmation */
+        .confirmation {
+            display: none;
+            background: rgba(89, 91, 159, 0.9);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Footer */
+        footer {
+            background: white;
+            color: white;
+            padding: 50px 0 20px;
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 40px;
+            text-align: center;
+            color:var(--soft);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes textShine {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade {
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .contact-info,
+            .contact-form {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .contact-hero {
+                height: 50vh;
+                min-height: 400px;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 2.8rem;
+            }
+
+            .contact-info {
+                border-radius: 20px 20px 0 0;
+            }
+
+            .contact-form {
+                border-radius: 0 0 20px 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .contact-info,
+            .contact-form {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="logo.png" alt="Logo Joker ESEN" class="navbar-logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="apropos.html">À propos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="galerie.html">Galerie</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="contact-hero">
+        <div class="container">
+            <div class="hero-content text-center animate__animated animate__fadeIn">
+                <h1 class="hero-title">Restons connectés</h1>
+                <p class="hero-subtitle animate__animated animate__fadeInUp animate__delay-1s">Une question, une idée ou une envie de nous rejoindre ? Écrivez-nous !</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="row g-0 contact-container animate__animated animate__fadeInUp">
+                <div class="col-lg-5">
+                    <div class="contact-info">
+                        <h3 class="animate-fade">Nos coordonnées</h3>
+                        
+                        <div class="contact-item animate-fade delay-1">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Email</h4>
+                                <p>jokeresenclub@gmail.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item animate-fade delay-1">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Téléphone</h4>
+                                <p>+216 20 564 037</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item animate-fade delay-2">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Localisation</h4>
+                                <p>Campus Universitaire de la Manouba - 2010 La Manouba, Manouba, Tunisia</p>
+                            </div>
+                        </div>
+                        
+                        <div class="animate-fade delay-3">
+                            <h4 class="mb-3">Suivez-nous</h4>
+                            <div class="social-links">
+                                <a href="https://www.facebook.com/JokerEsen.JE" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                <a href="https://www.instagram.com/jokeresen/" target="_blank"><i class="fab fa-instagram"></i></a>
+                                <a href="https://www.linkedin.com/company/joker-esen/posts/?feedView=all" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="https://www.tiktok.com/@jokeresen" target="_blank"><i class="fab fa-tiktok"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-7">
+                    <div class="contact-form">
+                        <h3 class="form-title animate-fade">Envoyez-nous un message</h3>
+                        <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+    <!-- Clé d'API Web3Forms -->
+    <input type="hidden" name="access_key" value="03fe8868-9753-40a2-a18a-3a8ad79f0cf3">
+    <input type="checkbox" name="botcheck" style="display: none;">
+
+    <div class="input-group animate-fade delay-1">
+        <i class="fas fa-user input-icon"></i>
+        <input type="text" name="name" class="form-control" placeholder="Votre nom" required>
+    </div>
+
+    <div class="input-group animate-fade delay-1">
+        <i class="fas fa-envelope input-icon"></i>
+        <input type="email" name="email" class="form-control" placeholder="Votre email" required>
+    </div>
+    
+    <div class="input-group animate-fade delay-2">
+        <i class="fas fa-tag input-icon"></i>
+        <input type="text" name="subject" class="form-control" placeholder="Sujet" required>
+    </div>
+    
+    <div class="input-group animate-fade delay-2">
+        <i class="fas fa-comment input-icon"></i>
+        <textarea name="message" class="form-control" placeholder="Votre message" required></textarea>
+    </div>
+    
+    <button type="submit" class="btn-submit animate-fade delay-3">
+        Envoyer le message
+    </button>
+    
+    <div id="result" class="confirmation" style="display: none;">
+        <i class="fas fa-check-circle fa-2x mb-3"></i>
+        <h4>Merci pour votre message !</h4>
+        <p>Joker vous répondra bientôt.</p>
+    </div>
+</form>
+
+
+                    </div>
+                </div>
+            </div>
+            
+            <div class="map-container animate__animated animate__fadeIn animate__delay-1s">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3036.399366647987!2d10.070614375645512!3d36.80753127224511!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12fd2d8cf72265cb%3A0x7fc41ab7e1b5bd62!2zw4ljb2xlIFN1cMOpcmlldXJlIGRlIGwnw4ljb25vbWllIE51bcOpcmlxdWU!5e1!3m2!1sfr!2stn!4v1753741064092!5m2!1sfr!2stn" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                <p class="mb-0">© 2025 <strong>Joker ESEN</strong>. Tous droits réservés — Conçu avec ❤️ pour les étudiants.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulate form submission
+            setTimeout(function() {
+                document.getElementById('confirmation').style.display = 'block';
+                document.getElementById('contactForm').reset();
+                
+                // Hide confirmation after 5 seconds
+                setTimeout(function() {
+                    document.getElementById('confirmation').style.display = 'none';
+                }, 5000);
+            }, 1000);
+        });
+
+        // Animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('.animate-fade');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+          const form = document.getElementById('contactForm');
+    const result = document.getElementById('result');
+    
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(form);
+        
+        fetch(form.action, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                result.style.display = 'block';
+                form.reset();
+                
+                // Masquer le message après 5 secondes
+                setTimeout(() => {
+                    result.style.display = 'none';
+                }, 5000);
+            } else {
+                alert("Une erreur s'est produite. Veuillez réessayer.");
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("Une erreur s'est produite. Veuillez réessayer.");
+        });
+    });
+    </script>
+</body>
+</html>

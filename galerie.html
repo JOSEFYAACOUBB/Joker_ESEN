@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mémoires Florissantes | Joker ESEN</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Dancing+Script:wght@700&family=Montserrat:wght@300;400&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="logo.png" type="image/png">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #595b9f;
+            --primary-light: #7a7cbf;
+            --accent: #b02b35;
+            --accent-dark: #831d20;
+            --soft: #b69ead;
+            --warm: #f3bb98;
+            --dark: #0F0F1A;
+            --light: #f5f3ef;
+            --rose: #ffd6e0;
+        }
+
+        /* Header Styles (from index.html) */
+        /* ============================== */
+        .main-header {
+            background-color: var(--light);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: white;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .logo img {
+            height: 40px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover img {
+            transform: rotate(15deg);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: black;
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Footer Styles (from index.html) */
+        /* ============================== */
+        .main-footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo img {
+            height: 40px;
+        }
+
+        .footer-logo span {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        .footer-about p {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: var(--soft);
+        }
+
+        .footer-links h3,
+        .footer-contact h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 1.2rem;
+            color: var(--warm);
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.7rem;
+        }
+
+        .footer-links a {
+            color: var(--soft);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--soft);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .contact-item i {
+            color: var(--warm);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: 'Montserrat', sans-serif;
+            color: var(--soft);
+            font-size: 0.9rem;
+        }
+
+        /* Existing gallery styles */
+        /* ====================== */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            padding-top: 80px;
+            /* Added for fixed header */
+        }
+
+        /* Header */
+        .gallery-header {
+            height: 60vh;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(rgba(15, 15, 26, 0.7), rgba(15, 15, 26, 0.7)),
+                url(jo-love.jpg) center/cover no-repeat;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-content {
+            max-width: 800px;
+            padding: 0 20px;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+        }
+
+        .gallery-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .gallery-subtitle {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            margin-bottom: 2rem;
+            color: var(--warm);
+        }
+
+        /* Main Gallery */
+        .gallery-container {
+            padding: 50px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .album-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .album-card {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            aspect-ratio: 1/1;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+            transform: scale(0.95);
+            cursor: pointer;
+        }
+
+        .album-card.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .album-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .album-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(15, 15, 26, 0.9), transparent);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .album-card:hover .album-overlay {
+            transform: translateY(0);
+        }
+
+        .album-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(89, 91, 159, 0.3);
+        }
+
+        .album-card:hover .album-image {
+            transform: scale(1.1);
+        }
+
+        .album-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .album-date {
+            font-size: 0.9rem;
+            color: var(--soft);
+        }
+
+        /* Album Modal */
+        .album-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            z-index: 1000;
+            overflow-y: auto;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+
+        }
+
+        .album-modal.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .modal-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .modal-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        .modal-quote {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            color: var(--warm);
+            margin: 10px 0 30px;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .close-modal:hover {
+            transform: rotate(90deg);
+            color: var(--accent);
+        }
+
+        .images-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+            cursor: zoom-in;
+        }
+
+        .modal-image:hover {
+            transform: scale(1.03);
+            box-shadow: 0 5px 20px rgba(255, 214, 224, 0.3);
+        }
+
+        /* Music Toggle */
+        .music-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 5px 15px rgba(89, 91, 159, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .music-toggle:hover {
+            background: var(--primary-light);
+            transform: scale(1.1);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .album-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 15px;
+            }
+
+            .modal-title {
+                font-size: 1.5rem;
+            }
+
+            .modal-quote {
+                font-size: 1.2rem;
+            }
+
+            /* Header responsive */
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--light);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .gallery-header {
+                height: 50vh;
+            }
+
+            .images-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-image {
+                height: 200px;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Start (from index.html) -->
+    <header class="main-header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="Joker ESEN Logo">
+
+            </a>
+
+            <nav class="nav-links">
+                <a href="index.html">Accueil</a>
+                <a href="apropos.html">À propos</a>
+                <a href="galerie.html">Galerie</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+    <!-- Header End -->
+
+    <!-- Gallery Header -->
+    <section class="gallery-header">
+        <img>
+        <div class="header-content">
+            <h1 class="gallery-title">Mémoires Florissantes</h1>
+            <p class="gallery-subtitle">"Chaque instant partagé est une fleur dans le jardin de notre histoire"</p>
+        </div>
+    </section>
+
+    <!-- Main Gallery -->
+    <main class="gallery-container">
+        <div class="album-grid" id="albumGrid">
+            <!-- Albums will be dynamically inserted here -->
+        </div>
+    </main>
+
+    <!-- Album Modal -->
+    <div class="album-modal" id="albumModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title" id="modalTitle"></h2>
+                    <p class="modal-quote" id="modalQuote"></p>
+                </div>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div class="images-grid" id="imagesGrid">
+                <!-- Images will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Start (from index.html) -->
+    <footer>
+        <div class="container">
+            <div class="copyright text-center mt-4">
+                <p class="mb-0">© 2025 <strong>Joker ESEN</strong>. Tous droits réservés — Conçu avec ❤️ pour les
+                    étudiants.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer End -->
+
+    <!-- Music Toggle -->
+    <div class="music-toggle" id="musicToggle">
+        <i class="fas fa-music"></i>
+    </div>
+
+    <script>
+        // Sample gallery data (replace with your actual data from JSON)
+        const galleryData = [
+            {
+                id: 1,
+                title: "𝘼𝙧𝙩𝙞𝙨𝙖’𝙉𝙚𝙩"
+                ,
+                date: "30/05/2025",
+                quote: "L’artisanat, c’est l’âme qui s’exprime à travers les mains.",
+                cover: "artisanet4.jpg",
+                images: [
+                    "artisanet1.jpg",
+                    "artisanet2.jpg",
+                    "artisanet3.jpg",
+                    "artisanet4.jpg",
+                    "artisanet5.jpg",
+                ]
+            },
+            {
+                id: 2,
+                title: "Assemblée Générale 2025",
+                date: "16/02/2025",
+                quote: "Réunis pour grandir, unis pour réussir.",
+                cover: "assemble2.jpg",
+                images: [
+                    "assemble1.jpg",
+                    "assemble2.jpg",
+                    "assemble3.jpg",
+                    "assemble4.jpg",
+                    "assemble5.jpg"
+                ]
+            },
+            {
+                id: 3,
+                title: "W𝐨𝐫𝐤𝐬𝐡𝐨𝐩 𝐩𝐡𝐨𝐭𝐨𝐠𝐫𝐚𝐩𝐡𝐢𝐞",
+                date: "12/02/2025",
+                quote: "Chaque cliché raconte une histoire, à toi de capturer la tienne.",
+                cover: "workshop2.jpg",
+                images: [
+                    "workshop1.jpg",
+                    "workshop2.jpg",
+                    "workshop3.jpg",
+                    "workshop4.jpg",
+                    "workshop5.jpg"
+                ]
+            },
+            {
+                id: 4,
+                title: "Anniversaire Joker 8 ans",
+                date: "12/10/2024",
+                quote: "Célébrer la créativité féminine",
+                cover: "aniv1.jpg",
+                images: [
+                    "aniv1.jpg",
+                    "aniv2.jpg",
+                    "aniv3.jpg",
+
+                ]
+            }
+        ];
+
+        // Initialize the gallery
+        document.addEventListener('DOMContentLoaded', function () {
+            const albumGrid = document.getElementById('albumGrid');
+            const albumModal = document.getElementById('albumModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalQuote = document.getElementById('modalQuote');
+            const imagesGrid = document.getElementById('imagesGrid');
+            const closeModal = document.getElementById('closeModal');
+            const musicToggle = document.getElementById('musicToggle');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navLinks = document.querySelector('.nav-links');
+
+            // Mobile menu toggle
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+
+            // Load albums
+            galleryData.forEach(album => {
+                const albumCard = document.createElement('div');
+                albumCard.className = 'album-card';
+                albumCard.innerHTML = `
+                    <img src="${album.cover}" alt="${album.title}" class="album-image">
+                    <div class="album-overlay">
+                        <h3 class="album-title">${album.title}</h3>
+                        <p class="album-date">${album.date}</p>
+                    </div>
+                `;
+
+                albumCard.addEventListener('click', () => {
+                    openAlbumModal(album);
+                });
+
+                albumGrid.appendChild(albumCard);
+            });
+
+            // Open album modal
+            function openAlbumModal(album) {
+                modalTitle.textContent = album.title;
+                modalQuote.textContent = album.quote;
+                imagesGrid.innerHTML = '';
+
+                album.images.forEach(image => {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = image;
+                    imgElement.alt = album.title;
+                    imgElement.className = 'modal-image';
+                    imagesGrid.appendChild(imgElement);
+                });
+
+                albumModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            // Close album modal
+            closeModal.addEventListener('click', () => {
+                albumModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            // Music toggle
+            let audio = new Audio('Amr Diab - El Alem Allah  Official Music Video  عمرو دياب - العالم الله.mp3'); // Replace with your music file
+            audio.loop = true;
+
+            musicToggle.addEventListener('click', () => {
+                if (audio.paused) {
+                    audio.play();
+                    musicToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+                } else {
+                    audio.pause();
+                    musicToggle.innerHTML = '<i class="fas fa-music"></i>';
+                }
+            });
+
+            // Intersection Observer for scroll animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.album-card').forEach(card => {
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+
+</html>

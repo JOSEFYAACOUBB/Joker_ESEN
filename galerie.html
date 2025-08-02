@@ -4,462 +4,496 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mémoires Florissantes | Joker ESEN</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Dancing+Script:wght@700&family=Montserrat:wght@300;400&display=swap"
-        rel="stylesheet">
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Galerie - Joker ESEN</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="logo.png" type="image/png">
-
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Dancing+Script:wght@700&display=swap"
         rel="stylesheet">
+
     <style>
         :root {
             --primary: #595b9f;
-            --primary-light: #7a7cbf;
-            --accent: #b02b35;
-            --accent-dark: #831d20;
+            --primary-dark: #45477c;
+            --accent: #ff4d6d;
+            --accent-dark: #c9184a;
+            --dark: #1e1e2e;
+            --light: #f8f9fa;
             --soft: #b69ead;
-            --warm: #f3bb98;
-            --dark: #0F0F1A;
-            --light: #f5f3ef;
-            --rose: #ffd6e0;
+            --glass: rgba(255, 255, 255, 0.1);
+            --neon-glow: 0 0 10px rgba(255, 77, 109, 0.7);
         }
 
-        /* Header Styles (from index.html) */
-        /* ============================== */
-        .main-header {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--light);
-            color: white;
-            padding: 1rem 0;
+            color: var(--dark);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            padding-top: 80px;
+        }
+
+        /* Modern Navbar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             position: fixed;
             width: 100%;
             top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            left: 0;
+            z-index: 9999;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .navbar.scrolled {
+            padding: 5px 0;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            background-clip: text;
+            -webkit-background-clip: text;
+            /* Correction ici */
+            color: transparent;
+            display: inline-block;
+            position: relative;
+        }
+
+        .navbar-brand::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.3s ease;
+        }
+
+        .navbar-brand:hover::after {
+            width: 100%;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            margin: 0 10px;
+            position: relative;
+            color: var(--dark);
             transition: all 0.3s ease;
         }
 
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            color: white;
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 1.5rem;
-        }
-
-        .logo img {
-            height: 40px;
-            transition: transform 0.3s ease;
-        }
-
-        .logo:hover img {
-            transform: rotate(15deg);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .nav-links a {
-            color: black;
-            text-decoration: none;
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 600;
-            font-size: 1rem;
-            position: relative;
-            transition: color 0.3s ease;
-        }
-
-
-        .nav-links a::after {
+        .nav-link::after {
             content: '';
             position: absolute;
             width: 0;
             height: 2px;
-            bottom: -5px;
+            bottom: 0;
             left: 0;
-            background-color: var(--accent);
+            background: linear-gradient(90deg, var(--primary), var(--accent));
             transition: width 0.3s ease;
         }
 
-        .nav-links a:hover::after {
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
             width: 100%;
         }
 
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
+        .navbar-logo {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+            transition: transform 0.3s ease;
         }
 
-        /* Footer Styles (from index.html) */
-        /* ============================== */
-        .main-footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 3rem 0 1.5rem;
+        .navbar-logo:hover {
+            transform: scale(1.05);
         }
 
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .footer-logo {
+        /* Gallery Hero Section */
+        .gallery-hero {
+            position: relative;
+            height: 70vh;
+            min-height: 600px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 1rem;
+            overflow: hidden;
+            background: linear-gradient(145deg, var(--primary), var(--primary-dark));
+            color: white;
+            isolation: isolate;
         }
 
-        .footer-logo img {
-            height: 40px;
+        .gallery-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('jo-love.jpg') center/cover no-repeat;
+            opacity: 0.15;
+            z-index: -1;
         }
 
-        .footer-logo span {
-            font-family: 'Poppins', sans-serif;
+        .gallery-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to top, var(--light), transparent);
+            z-index: 2;
+        }
+
+        .hero-content-gallery {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+        }
+
+        .hero-title-gallery {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
             font-weight: 700;
-            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            background: linear-gradient(to right, white, #e0e0e0);
+            background-clip: text;
+            -webkit-background-clip: text;
+            /* Correction ici */
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
+            animation: textShine 3s ease-in-out infinite alternate;
         }
 
-        .footer-about p {
-            font-family: 'Montserrat', sans-serif;
-            line-height: 1.6;
+        .hero-subtitle-gallery {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            margin-bottom: 2rem;
             color: var(--soft);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.4;
         }
 
-        .footer-links h3,
-        .footer-contact h3 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.2rem;
-            margin-bottom: 1.2rem;
-            color: var(--warm);
-        }
-
-        .footer-links ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.7rem;
-        }
-
-        .footer-links a {
-            color: var(--soft);
-            text-decoration: none;
-            font-family: 'Montserrat', sans-serif;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--accent);
-        }
-
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--soft);
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .contact-item i {
-            color: var(--warm);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            background-color: var(--accent);
-            transform: translateY(-3px);
-        }
-
-        .copyright {
-            text-align: center;
-            margin-top: 3rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-family: 'Montserrat', sans-serif;
-            color: var(--soft);
-            font-size: 0.9rem;
-        }
-
-        /* Existing gallery styles */
-        /* ====================== */
-        body {
-            font-family: 'Montserrat', sans-serif;
+        /* Gallery Grid */
+        .gallery-section {
+            padding: 100px 0;
             background-color: var(--light);
-            color: var(--dark);
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            padding-top: 80px;
-            /* Added for fixed header */
-        }
-
-        /* Header */
-        .gallery-header {
-            height: 60vh;
-            min-height: 400px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(rgba(15, 15, 26, 0.7), rgba(15, 15, 26, 0.7)),
-                url(jo-love.jpg) center/cover no-repeat;
-            color: white;
-            text-align: center;
             position: relative;
         }
 
-        .header-content {
-            max-width: 800px;
-            padding: 0 20px;
-            transform: translateY(20px);
-            opacity: 0;
-            animation: fadeInUp 1s ease-out 0.3s forwards;
-        }
-
-        .gallery-title {
-            font-family: 'Poppins', sans-serif;
-            font-size: clamp(2.5rem, 5vw, 4rem);
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
             margin-bottom: 1rem;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+            display: inline-block;
         }
 
-        .gallery-subtitle {
-            font-family: 'Dancing Script', cursive;
-            font-size: clamp(1.5rem, 3vw, 2.2rem);
-            margin-bottom: 2rem;
-            color: var(--warm);
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 4px;
+            bottom: -10px;
+            left: 0;
+            background: var(--accent);
+            border-radius: 2px;
         }
 
-        /* Main Gallery */
-        .gallery-container {
-            padding: 50px 20px;
-            max-width: 1400px;
-            margin: 0 auto;
+        .section-subtitle {
+            color: rgba(0, 0, 0, 0.8);
+            margin-bottom: 3rem;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .album-grid {
+        .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 25px;
         }
 
-        .album-card {
+        .gallery-item {
             position: relative;
-            border-radius: 12px;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             aspect-ratio: 1/1;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            opacity: 0;
-            transform: scale(0.95);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
         }
 
-        .album-card.visible {
+        .gallery-item.visible {
             opacity: 1;
-            transform: scale(1);
+            transform: translateY(0);
         }
 
-        .album-image {
+        .gallery-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
 
-        .album-overlay {
+        .gallery-overlay {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            padding: 20px;
+            padding: 25px;
             background: linear-gradient(to top, rgba(15, 15, 26, 0.9), transparent);
             transform: translateY(100%);
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease;
         }
 
-        .album-card:hover .album-overlay {
+        .gallery-item:hover .gallery-overlay {
             transform: translateY(0);
         }
 
-        .album-card:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(89, 91, 159, 0.3);
+        .gallery-item:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(89, 91, 159, 0.2), var(--neon-glow);
         }
 
-        .album-card:hover .album-image {
+        .gallery-item:hover .gallery-image {
             transform: scale(1.1);
         }
 
-        .album-title {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.3rem;
+        .gallery-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
             color: white;
             margin-bottom: 5px;
         }
 
-        .album-date {
+        .gallery-date {
             font-size: 0.9rem;
             color: var(--soft);
         }
 
-        /* Album Modal */
-        .album-modal {
+        /* Gallery Modal */
+        .gallery-modal {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--primary);
-            z-index: 1000;
+            background: rgba(30, 30, 46, 0.95);
+            z-index: 9999;
             overflow-y: auto;
             opacity: 0;
             transition: opacity 0.3s ease;
-
         }
 
-        .album-modal.active {
+        .gallery-modal.active {
             display: block;
             opacity: 1;
         }
 
         .modal-content {
             max-width: 1200px;
-            margin: 0 auto;
-            padding: 60px 20px;
+            margin: 60px auto;
+            padding: 40px;
         }
 
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             color: white;
         }
 
         .modal-title {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
             margin: 0;
+            background: linear-gradient(to right, white, var(--soft));
+            background-clip: text;
+            -webkit-background-clip: text;
+            /* Correction ici */
+            color: transparent;
         }
 
         .modal-quote {
             font-family: 'Dancing Script', cursive;
-            font-size: 1.5rem;
-            color: var(--warm);
-            margin: 10px 0 30px;
+            font-size: 1.8rem;
+            color: var(--soft);
+            margin: 15px 0 40px;
         }
 
         .close-modal {
             background: none;
             border: none;
             color: white;
-            font-size: 1.5rem;
+            font-size: 2rem;
             cursor: pointer;
             transition: transform 0.3s ease;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .close-modal:hover {
             transform: rotate(90deg);
-            color: var(--accent);
+            background: var(--accent);
         }
 
         .images-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
         }
 
         .modal-image {
             width: 100%;
-            height: 250px;
+            height: 280px;
             object-fit: cover;
-            border-radius: 8px;
-            transition: transform 0.3s ease;
-            cursor: zoom-in;
+            border-radius: 12px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
         .modal-image:hover {
-            transform: scale(1.03);
-            box-shadow: 0 5px 20px rgba(255, 214, 224, 0.3);
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(255, 77, 109, 0.3);
         }
 
-        /* Music Toggle */
-        .music-toggle {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
+        /* Footer */
+        footer {
+            background: var(--light);
+            color: var(--dark);
+            padding: 80px 0 20px;
+            position: relative;
+        }
+
+        .footer-logo {
+            height: 70px;
+            margin-bottom: 25px;
+            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.1));
+            transition: transform 0.3s ease;
+        }
+
+        .footer-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            position: relative;
+            font-weight: 500;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
-            background: var(--primary);
-            color: white;
+            background: white;
+            color: var(--primary);
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            z-index: 100;
-            box-shadow: 0 5px 15px rgba(89, 91, 159, 0.5);
             transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .music-toggle:hover {
-            background: var(--primary-light);
-            transform: scale(1.1);
+        .social-icon:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 20px rgba(201, 24, 74, 0.3);
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            padding-top: 20px;
+            margin-top: 50px;
+            text-align: center;
+            color: var(--dark);
+            font-size: 0.9rem;
         }
 
         /* Animations */
-        @keyframes fadeInUp {
+        @keyframes fadeIn {
             from {
                 opacity: 0;
                 transform: translateY(20px);
@@ -471,46 +505,52 @@
             }
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .album-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-                gap: 15px;
+        @keyframes textShine {
+            0% {
+                background-position: 0% 50%;
             }
 
-            .modal-title {
-                font-size: 1.5rem;
-            }
-
-            .modal-quote {
-                font-size: 1.2rem;
-            }
-
-            /* Header responsive */
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background-color: var(--light);
-                flex-direction: column;
-                padding: 1rem;
-                gap: 1rem;
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .mobile-menu-btn {
-                display: block;
+            100% {
+                background-position: 100% 50%;
             }
         }
 
-        @media (max-width: 576px) {
-            .gallery-header {
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .gallery-hero {
+                height: 60vh;
+                min-height: 500px;
+            }
+
+            .modal-content {
+                padding: 30px;
+            }
+
+            .modal-title {
+                font-size: 2rem;
+            }
+
+            .modal-quote {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery-hero {
                 height: 50vh;
+                min-height: 400px;
+            }
+
+            .hero-title-gallery {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle-gallery {
+                font-size: 1.5rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             }
 
             .images-grid {
@@ -518,57 +558,93 @@
             }
 
             .modal-image {
-                height: 200px;
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .gallery-hero {
+                height: 40vh;
+                min-height: 350px;
             }
 
-            .footer-container {
-                grid-template-columns: 1fr;
+            .hero-title-gallery {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle-gallery {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .section-title::after {
+                width: 40px;
+            }
+
+            .modal-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
             }
         }
     </style>
 </head>
 
 <body>
-    <!-- Header Start (from index.html) -->
-    <header class="main-header">
-        <div class="header-container">
-            <a href="index.html" class="logo">
-                <img src="logo.png" alt="Joker ESEN Logo">
-
+    <!-- Modern Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="logo.png" alt="Logo Joker ESEN" class="navbar-logo">
             </a>
-
-            <nav class="nav-links">
-                <a href="index.html">Accueil</a>
-                <a href="apropos.html">À propos</a>
-                <a href="galerie.html">Galerie</a>
-                <a href="contact.html">Contact</a>
-            </nav>
-
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="apropos.html">À propos</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="galerie.html">Galerie</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
         </div>
-    </header>
-    <!-- Header End -->
+    </nav>
 
-    <!-- Gallery Header -->
-    <section class="gallery-header">
-        <img>
-        <div class="header-content">
-            <h1 class="gallery-title">Mémoires Florissantes</h1>
-            <p class="gallery-subtitle">"Chaque instant partagé est une fleur dans le jardin de notre histoire"</p>
+    <!-- Gallery Hero Section -->
+    <section class="gallery-hero">
+        <div class="container">
+            <div class="hero-content-gallery animate__animated animate__fadeIn">
+                <h1 class="hero-title-gallery">Mémoires Florissantes</h1>
+                <p class="hero-subtitle-gallery">"Chaque instant partagé est une fleur dans le jardin de notre histoire"
+                </p>
+            </div>
         </div>
     </section>
 
-    <!-- Main Gallery -->
-    <main class="gallery-container">
-        <div class="album-grid" id="albumGrid">
-            <!-- Albums will be dynamically inserted here -->
-        </div>
-    </main>
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8 text-center">
+                    <h2 class="section-title animate-fade">Nos Albums Photos</h2>
+                    <p class="section-subtitle animate-fade delay-1">Revivez nos moments inoubliables à travers ces
+                        collections spéciales</p>
+                </div>
+            </div>
 
-    <!-- Album Modal -->
-    <div class="album-modal" id="albumModal">
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Albums will be dynamically inserted here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Modal -->
+    <div class="gallery-modal" id="galleryModal">
         <div class="modal-content">
             <div class="modal-header">
                 <div>
@@ -583,31 +659,30 @@
         </div>
     </div>
 
-    <!-- Footer Start (from index.html) -->
+    <!-- Footer -->
     <footer>
-        <div class="container">
+      
+
+            <!-- Copyright -->
             <div class="copyright text-center mt-4">
-                <p class="mb-0">© 2025 <strong>Joker ESEN</strong>. Tous droits réservés — Conçu avec ❤️ pour les
-                    étudiants.</p>
+                <p class="mb-0">
+                    © 2025 <strong>Joker ESEN</strong>. Tous droits réservés — Conçu avec ❤️ pour les étudiants.
+                </p>
             </div>
         </div>
     </footer>
-    <!-- Footer End -->
 
-    <!-- Music Toggle -->
-    <div class="music-toggle" id="musicToggle">
-        <i class="fas fa-music"></i>
-    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         // Sample gallery data (replace with your actual data from JSON)
         const galleryData = [
             {
                 id: 1,
-                title: "𝘼𝙧𝙩𝙞𝙨𝙖’𝙉𝙚𝙩"
-                ,
+                title: "𝘼𝙧𝙩𝙞𝙨𝙖'𝙉𝙚𝙩",
                 date: "30/05/2025",
-                quote: "L’artisanat, c’est l’âme qui s’exprime à travers les mains.",
+                quote: "L'artisanat, c'est l'âme qui s'exprime à travers les mains.",
                 cover: "artisanet4.jpg",
                 images: [
                     "artisanet1.jpg",
@@ -655,49 +730,40 @@
                     "aniv1.jpg",
                     "aniv2.jpg",
                     "aniv3.jpg",
-
                 ]
             }
         ];
 
         // Initialize the gallery
         document.addEventListener('DOMContentLoaded', function () {
-            const albumGrid = document.getElementById('albumGrid');
-            const albumModal = document.getElementById('albumModal');
+            const galleryGrid = document.getElementById('galleryGrid');
+            const galleryModal = document.getElementById('galleryModal');
             const modalTitle = document.getElementById('modalTitle');
             const modalQuote = document.getElementById('modalQuote');
             const imagesGrid = document.getElementById('imagesGrid');
             const closeModal = document.getElementById('closeModal');
-            const musicToggle = document.getElementById('musicToggle');
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const navLinks = document.querySelector('.nav-links');
-
-            // Mobile menu toggle
-            mobileMenuBtn.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-            });
 
             // Load albums
             galleryData.forEach(album => {
-                const albumCard = document.createElement('div');
-                albumCard.className = 'album-card';
-                albumCard.innerHTML = `
-                    <img src="${album.cover}" alt="${album.title}" class="album-image">
-                    <div class="album-overlay">
-                        <h3 class="album-title">${album.title}</h3>
-                        <p class="album-date">${album.date}</p>
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item';
+                galleryItem.innerHTML = `
+                    <img src="${album.cover}" alt="${album.title}" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title">${album.title}</h3>
+                        <p class="gallery-date">${album.date}</p>
                     </div>
                 `;
 
-                albumCard.addEventListener('click', () => {
-                    openAlbumModal(album);
+                galleryItem.addEventListener('click', () => {
+                    openGalleryModal(album);
                 });
 
-                albumGrid.appendChild(albumCard);
+                galleryGrid.appendChild(galleryItem);
             });
 
-            // Open album modal
-            function openAlbumModal(album) {
+            // Open gallery modal
+            function openGalleryModal(album) {
                 modalTitle.textContent = album.title;
                 modalQuote.textContent = album.quote;
                 imagesGrid.innerHTML = '';
@@ -710,32 +776,40 @@
                     imagesGrid.appendChild(imgElement);
                 });
 
-                albumModal.classList.add('active');
+                galleryModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
             }
 
-            // Close album modal
+            // Close gallery modal
             closeModal.addEventListener('click', () => {
-                albumModal.classList.remove('active');
+                galleryModal.classList.remove('active');
                 document.body.style.overflow = 'auto';
             });
 
-            // Music toggle
-            let audio = new Audio('Amr Diab - El Alem Allah  Official Music Video  عمرو دياب - العالم الله.mp3'); // Replace with your music file
-            audio.loop = true;
-
-            musicToggle.addEventListener('click', () => {
-                if (audio.paused) {
-                    audio.play();
-                    musicToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
-                } else {
-                    audio.pause();
-                    musicToggle.innerHTML = '<i class="fas fa-music"></i>';
-                }
+            // Navbar scroll effect
+            window.addEventListener('scroll', function () {
+                const navbar = document.querySelector('.navbar');
+                navbar.classList.toggle('scrolled', window.scrollY > 50);
             });
 
-            // Intersection Observer for scroll animations
+            // Animation on scroll with Intersection Observer
+            const animateElements = document.querySelectorAll('.animate-fade');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+
             const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            animateElements.forEach(element => {
+                element.classList.add('animate-init');
+                observer.observe(element);
+            });
+
+            const galleryObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
@@ -743,11 +817,25 @@
                 });
             }, { threshold: 0.1 });
 
-            document.querySelectorAll('.album-card').forEach(card => {
-                observer.observe(card);
+            galleryItems.forEach(item => {
+                galleryObserver.observe(item);
             });
         });
     </script>
+
+    <style>
+        /* Final animation styles */
+        .animate-init {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .animate-init.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </body>
 
 </html>
